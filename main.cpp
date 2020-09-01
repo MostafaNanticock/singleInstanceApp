@@ -4,21 +4,22 @@
 
 #include <qtsingleapplication.h>
 
+#include "InstancesManager.h"
+
 int main(int argc, char *argv[])
 {
     QtSingleApplication app(argc, argv);
-    QQmlApplicationEngine engine;
 
     if(app.isRunning())
     {
         app.sendMessage("OpenMainWindow");
-        app.aboutQt();
+        exit(0);
     }
 
+    QQmlApplicationEngine engine;
+
+    engine.rootContext()->setContextProperty("app", &app);
     engine.load("qrc:/main.qml");
-
-//    engine.rootContext()->setContextProperty("splashScreenCpp", &splashScreenCpp);
-
 
     return app.exec();
 }

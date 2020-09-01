@@ -13,6 +13,8 @@ Item
     MainWindow
     {
         id: mainWindow
+
+        onRestartTriggered: app.sendMessage("restart")
     }
 
     TrayWindow
@@ -20,6 +22,22 @@ Item
         id: trayWindow
 
         onOpenMainWindowTriggered: mainWindow.show()
+    }
+
+    Connections
+    {
+        target: app
+        onMessageReceived:
+        {
+            switch(message)
+            {
+            case "OpenMainWindow":
+                mainWindow.show()
+                mainWindow.requestActivate()
+                mainWindow.alert()
+                break
+            }
+        }
     }
 
     SystemTrayIcon
