@@ -12,8 +12,13 @@ int main(int argc, char *argv[])
 
     if(app.isRunning())
     {
-        app.sendMessage("OpenMainWindow");
-        exit(0);
+        // always exit if there is already another instance running unless the application was run with
+        // "--restart" as the first argument.
+        if(QApplication::arguments().length() == 0 || QApplication::arguments().first().toLower() != "--restart")
+        {
+            app.sendMessage("OpenMainWindow");
+            exit(0);
+        }
     }
 
     QQmlApplicationEngine engine;

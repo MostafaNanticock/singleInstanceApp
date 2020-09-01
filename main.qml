@@ -14,7 +14,10 @@ Item
     {
         id: mainWindow
 
-        onRestartTriggered: app.sendMessage("restart")
+        onRestartTriggered:
+        {
+            // run another instance of the application using QProcess with "--restart" as the first argument
+        }
     }
 
     TrayWindow
